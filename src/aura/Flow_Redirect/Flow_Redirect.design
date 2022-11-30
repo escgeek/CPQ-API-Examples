@@ -1,0 +1,4 @@
+<design:component>
+	<design:attribute name="recordId" label="Record Id" description="Record Id" />
+    <design:attribute name="urlString" label="URL String" description="Redirection URL String"/>
+</design:component>
