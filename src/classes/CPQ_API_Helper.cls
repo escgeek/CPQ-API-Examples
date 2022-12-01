@@ -1,4 +1,4 @@
-public with sharing class CPQ_API_Helper {
+public class CPQ_API_Helper {
 
     // Read Quote
     public static QuoteModel read(String quoteId) {
@@ -62,12 +62,11 @@ public with sharing class CPQ_API_Helper {
     }
 
     public static List<QuoteModel> renewContract(Id contractId, List<Contract> contracts) {
-        // JSON Context
-        RenewalContext contractPayload = new RenewalContext();
-        contractPayload.renewedContracts = contracts;
-        // Create List of Contract renewals
+        RenewalContext contractPayload = new RenewalContext(); // Create the Payload
+        contractPayload.renewedContracts = contracts; // Set the Renewal Contracts
+        // This creates the list of contract renewals using the CPQ API callout
         String quotesJSON = SBQQ.ServiceRouter.load('SBQQ.ContractManipulationAPI.ContractRenewer', (String) contractId, JSON.serialize(contractPayload));
-        // Return that list
+        // Return the list of quotes - usually only 1
         return (List<QuoteModel>) System.JSON.deserialize(quotesJSON, LIST<QuoteModel>.class);
     }
 
@@ -86,8 +85,8 @@ public with sharing class CPQ_API_Helper {
     }
     
     public class QuoteCalculatorContext {        
-        public QuoteModel quote;             //The quote and callbackClass properties are called in the API code by the exact names seen here.
-        public String callbackClass;         //Altering these property names will cause calculator API calls to fail.
+        public QuoteModel quote;
+        public String callbackClass;
     
         public QuoteCalculatorContext(QuoteModel quote, String callbackClass) {
             this.quote = quote;            
@@ -165,7 +164,7 @@ public with sharing class CPQ_API_Helper {
     public class ConfigurationModel { 
         public Id configuredProductId; 
         public Id optionId; 
-        public SBQQ__ProductOption__c optionData; // Editable data about the option in question, such as quantity or discount 
+        public SBQQ__ProductOption__c optionData;
         public SBQQ__ProductOption__c configurationData; 
         public SBQQ__ProductOption__c inheritedConfigurationData; 
         public ConfigurationModel[] optionConfigurations; 
@@ -243,7 +242,7 @@ public with sharing class CPQ_API_Helper {
         private QuoteModel quote;
         private ProductModel[] products;
         private Integer groupKey;
-        private final Boolean ignoreCalculate = true; //Must be hardcoded to true
+        private final Boolean ignoreCalculate = true;
     
         private AddProductsContext(QuoteModel quote, ProductModel[] products, Integer groupKey) {
             this.quote = quote;

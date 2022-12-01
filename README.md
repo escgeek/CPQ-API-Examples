@@ -1,6 +1,6 @@
 # CPQ-API-Examples
 
-This git repository project started out as a simple exercise in knowledge sharing but as I have built out what I thought would be a couple of simple examples involving how to use the CPQ API to generate renewals and amendment quotes quick grew in size and scope to includes the following:
+This git repository project started out as a simple exercise in knowledge sharing but as I have built out the examples involving how to use the CPQ API to generate renewals and amendment quotes this quickly grew in size and scope to includes the following:
 
 - CPQ API Model and Method Class in 1 file (except the callback which is in its own file)
 - Amendment and Renewal examples that includes apex and flows
@@ -10,7 +10,7 @@ This git repository project started out as a simple exercise in knowledge sharin
 - Utility Class to manage DML 
 - Test classes to support these examples all with 100% coverage
 
-I thought I could stop at the first 2 bullets but boy was I wrong! This quickly became a house of cards of dependent utilities and classes required to keep this simple.
+The first 2 bullets was my initial scope but this quickly grew as I pulled in more and more of the utilities and classes that I use create solutions like this and to keep it simple and easy to use/re-use.
 
 ## **Quick Introduction to CPQ API**
 

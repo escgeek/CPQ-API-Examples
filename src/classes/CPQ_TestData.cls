@@ -25,8 +25,7 @@ public String salt;
     public static void create(Account a){ // Create the rest of the data
         Contact c = createContact(a.Id);
         Opportunity o = createOpportunity(a.Id, c.Id);
-        // Quote Flags
-        // Account Id - Opportunity Id - Primary Quote - With Line Items - With Groups
+        // Quote Flags: Account Id - Opportunity Id - Primary Quote - With Line Items - With Groups
         SBQQ__Quote__c q = createQuote(a.Id, o.Id, true, true, true);
     }
 
@@ -50,7 +49,7 @@ public String salt;
 
     public static Account createAccount(){
         CPQ_TestData testData = new CPQ_TestData();
-        //Id recordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('Standard').getRecordTypeId();
+        //Id recordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('Standard').getRecordTypeId(); // Example of how to get the record type id by name
         Account a = new Account(
             Name = testData.salt + ' - CPQ Test Account', 
             Type = 'Prospect',
@@ -85,7 +84,7 @@ public String salt;
                 Pricebook2Id = testData.priceBookId,
                 SBQQ__QuotePricebookId__c = testData.priceBookId,
             	StageName = 'Prospecting' // Update this to your org's first opportunity stage
-                //Test_Record__c = true
+                //Test_Record__c = true // I like to use something like this for easy cleanup and report filtering if used in production
             );
         insert o;
         return o;
@@ -94,8 +93,7 @@ public String salt;
     public static SBQQ__Quote__c createQuote(Id accountId, Id opportunityId){
         return createQuote(accountId,opportunityId,true,true,true);
     }
-    // Quote Flags
-    // Account Id - Opportunity Id - Primary Quote - With Line Items - With Groups
+    
     public static SBQQ__Quote__c createQuote(Id accountId, Id opportunityId, boolean primaryFlag, boolean withLines, boolean withGroups){
         CPQ_TestData testData = new CPQ_TestData();
         SBQQ__Quote__c q = new SBQQ__Quote__c (
@@ -132,7 +130,6 @@ public String salt;
             for(CPQ_API_Helper.QuoteLineModel ql : quoteWithProducts.lineItems){
                 ql.record.SBQQ__Quantity__c = 12;
                 ql.record.SBQQ__ListPrice__c = 25;
-                //ql.record.SBQQ__Group__c = (qlgId != null) ? qlgId : null; // Associate the Product to a group
                 ql.record.SBQQ__Group__c = qlg.Id; // Associate the Product to a group
             }
             CPQ_API_Helper.calculate(quoteWithProducts, 'CPQ_API_QuoteCallBack'); 
